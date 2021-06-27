@@ -17,7 +17,7 @@ import navbar_logo from '../assets/navbar_logo.png'
 const NavbarM = () => {
     return (
         <div>
-            <Navbar bg="light" variant="light">
+            <Navbar className="px-5" bg="light" variant="light">
                 <Navbar.Brand href="/">
                     <img
                         alt=""
@@ -31,6 +31,8 @@ const NavbarM = () => {
                 <Nav className="mr-auto">
                     <Nav.Link href="/">Home</Nav.Link>
                 </Nav>
+                <Button className="mx-2" variant="outline-primary" href="/login">Login</Button>
+                <Button className="mx-2" variant="primary" href="/register">Register</Button>
             </Navbar>
         </div>
     )
