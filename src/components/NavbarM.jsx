@@ -6,7 +6,7 @@ import {
     Button,
     Navbar,
     Nav,
-    Form,
+    Container,
     FormControl
  } from 'react-bootstrap';
 
@@ -17,22 +17,25 @@ import navbar_logo from '../assets/navbar_logo.png'
 const NavbarM = () => {
     return (
         <div>
-            <Navbar className="px-5" bg="light" variant="light">
-                <Navbar.Brand href="/">
-                    <img
-                        alt=""
-                        src={navbar_logo}
-                        width="30"
-                        height="30"
-                        className="d-inline-block align-top"
-                    />{' '}
-                    <b>Housepital</b>
-                </Navbar.Brand>
-                <Nav className="mr-auto">
-                    <Nav.Link href="/">Home</Nav.Link>
-                </Nav>
-                <Button className="mx-2" variant="outline-primary" href="/login">Login</Button>
-                <Button className="mx-2" variant="primary" href="/register">Register</Button>
+            <Navbar collapseOnSelect className="px-lg-5" bg="light" variant="light" expand="lg">
+                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+                <Navbar.Collapse id="responsive-navbar-nav">
+                    <Navbar.Brand href="/">
+                        <img
+                            alt=""
+                            src={navbar_logo}
+                            width="30"
+                            height="30"
+                            className="d-inline-block align-top"
+                        />{' '}
+                        <b>Housepital</b>
+                    </Navbar.Brand>
+                    <Nav className="mr-auto">
+                        <Nav.Link href="/">Home</Nav.Link>
+                    </Nav>
+                    <Button className="mx-2" variant="outline-primary" href="/login">Login</Button>
+                    <Button className="mx-2" variant="primary" href="/register">Register</Button>
+                </Navbar.Collapse>
             </Navbar>
         </div>
     )
