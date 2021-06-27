@@ -44,12 +44,12 @@ const SearchDoctors = () => {
                 <Col lg={3} className="d-flex justify-content-center mb-3">
                     <AppointmentCard
                         doctorName="Dr. Stephen Strange"
-                        type="Neurosurgeon SpecialistSpecialistSpecialistSpecialist"/>
+                        type="Medical Check Up"/>
                 </Col>
                 <Col lg={3} className="d-flex justify-content-center mb-3">
                     <AppointmentCard
                         doctorName="Dr. Stephen Strange"
-                        type="Neurosurgeon SpecialistSpecialistSpecialistSpecialist"/>
+                        type="Neurosurgeon Specialist"/>
                 </Col>
             </Row>
         </div>

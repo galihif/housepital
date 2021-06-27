@@ -6,7 +6,10 @@ import './AppointmentCard.scss'
 import { 
     Button,
     Card,
-    Modal
+    Modal,
+    Row,
+    Col,
+    Form
  } from 'react-bootstrap';
 
  //Images
@@ -36,7 +39,40 @@ const AppointmentCard = (props) => {
                 <Modal.Header closeButton>
                     <Modal.Title>Book an Appointment</Modal.Title>
                 </Modal.Header>
-                <Modal.Body className="px-lg-5">Woohoo, you're reading this text in a modal!</Modal.Body>
+                <Modal.Body className="px-lg-4">
+                    <Row className="my-2">
+                        <Col lg={4}>
+                            <p>Doctor Name</p>
+                        </Col>
+                        <Col lg={8}>
+                            <p className="text-right">{props.doctorName}</p>
+                        </Col>
+                    </Row>
+                    <Row className="my-2">
+                        <Col lg={4}>
+                            <p>Type</p>
+                        </Col>
+                        <Col lg={8}>
+                            <p className="text-right">{props.type}</p>
+                        </Col>
+                    </Row>
+                    <Row className="my-2">
+                        <Col lg={4}>
+                            <p>Date</p>
+                        </Col>
+                        <Col lg={8}>
+                            <Form.Control type="date" placeholder="Enter Date" />
+                        </Col>
+                    </Row>
+                    <Row className="my-2">
+                        <Col lg={4}>
+                            <p>Time</p>
+                        </Col>
+                        <Col lg={8}>
+                            <Form.Control type="time" placeholder="Enter Date" />
+                        </Col>
+                    </Row>
+                </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={toggleDialog}>
                         Cancel
