@@ -13,7 +13,6 @@ import {
 
  //Images
 import navbar_logo from '../assets/navbar_logo.png'
- import footer_logo from '../assets/footer_logo.png'
 
 const Header = () => {
     return (

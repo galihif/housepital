@@ -7,7 +7,8 @@ import {
     Navbar,
     Nav,
     Container,
-    FormControl
+    FormControl,
+    Row
  } from 'react-bootstrap';
 
  //Images
@@ -15,27 +16,20 @@ import navbar_logo from '../assets/navbar_logo.png'
 
 const Footer = () => {
     return (
-        <div>
-            <Navbar collapseOnSelect className="px-lg-5" bg="light" variant="light" expand="lg">
-                <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-                <Navbar.Collapse id="responsive-navbar-nav">
-                    <Navbar.Brand href="/">
-                        <img
-                            alt=""
-                            src={navbar_logo}
-                            width="30"
-                            height="30"
-                            className="d-inline-block align-top"
-                        />{' '}
-                        <b>Housepital</b>
-                    </Navbar.Brand>
-                    <Nav className="mr-auto">
-                        <Nav.Link href="/">Home</Nav.Link>
-                    </Nav>
-                    <Button className="mx-2" variant="outline-primary" href="/login">Login</Button>
-                    <Button className="mx-2" variant="primary" href="/register">Register</Button>
-                </Navbar.Collapse>
-            </Navbar>
+        <div style={{height:"12em"}} className="p-5">
+            <div className="d-flex justify-content-center align-items-center">
+                <Navbar.Brand href="/">
+                    <img
+                        alt=""
+                        src={navbar_logo}
+                        width="30"
+                        height="30"
+                        className="d-inline-block align-top"
+                    />{' '}
+                    <b>Housepital</b>
+                </Navbar.Brand>
+            </div>
+            <p className="text-center">© 2021 - GIF Technologies</p>
         </div>
     )
 }

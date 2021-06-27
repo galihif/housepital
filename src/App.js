@@ -16,6 +16,7 @@ import Home from './pages/Home'
 import NavbarM from "./components/NavbarM";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -34,6 +35,7 @@ function App() {
             </Route>
           </Switch>
         </div>
+        <Footer/>
     </Router>
   );
 }
