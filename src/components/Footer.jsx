@@ -13,7 +13,7 @@ import {
  //Images
 import navbar_logo from '../assets/navbar_logo.png'
 
-const NavbarM = () => {
+const Footer = () => {
     return (
         <div>
             <Navbar collapseOnSelect className="px-lg-5" bg="light" variant="light" expand="lg">
@@ -40,4 +40,4 @@ const NavbarM = () => {
     )
 }
 
-export default NavbarM
+export default Footer
