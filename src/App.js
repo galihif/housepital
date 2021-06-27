@@ -21,7 +21,7 @@ function App() {
   return (
     <Router>
         <NavbarM />
-        <div className="px-5">
+        <div>
           <Switch>
             <Route path="/login">
               <Login />

@@ -18,7 +18,7 @@ import navbar_logo from '../assets/navbar_logo.png'
 const Header = () => {
     return (
         <div>
-            <Jumbotron className="px-5 d-flex align-items-center">
+            <Jumbotron className="px-5 d-flex align-items-center m-0">
                 <Row>
                     <Col lg={8}>
                         <h1>Easy way to check your health</h1>
