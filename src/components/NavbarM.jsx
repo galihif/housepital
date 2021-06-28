@@ -16,7 +16,7 @@ import navbar_logo from '../assets/navbar_logo.png'
 const NavbarM = () => {
     return (
         <div>
-            <Navbar collapseOnSelect className="px-lg-5" bg="light" variant="light" expand="lg">
+            <Navbar collapseOnSelect className="px-lg-5" bg="white" variant="light" expand="lg">
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
                     <Navbar.Brand href="/">
