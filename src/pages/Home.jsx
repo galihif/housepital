@@ -2,7 +2,7 @@
 import React from 'react'
 
 //Styles
-import './Home.scss'//Styles
+import './Home.scss'
 import {
     Button,
     Jumbotron,

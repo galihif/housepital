@@ -16,6 +16,7 @@ import Home from './pages/Home'
 import NavbarM from "./components/NavbarM";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Profile from "./pages/Profile";
 import Footer from "./components/Footer";
 
 function App() {
@@ -24,6 +25,9 @@ function App() {
         <NavbarM />
         <div>
           <Switch>
+            <Route path="/profile">
+              <Profile/>
+            </Route>
             <Route path="/login">
               <Login />
             </Route>
