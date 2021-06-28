@@ -8,6 +8,7 @@ import {
     Image,
     Row,
     Col,
+    Nav
 } from 'react-bootstrap';
 
 //image
@@ -17,14 +18,14 @@ import card_img from '../assets/card_img.png'
 
 const Profile  = () => {
     return(
-        <div className="d-flex justify-content-center align-items-center">
-            <Container className="profile-container my-5 mx-5 mx-lg-0" style={{ width: "40em", height:"9em" }}>
+        <div className="">
+            <Container className="profile-container my-5 mx-5 mx-lg-auto" style={{ width: "40em", height: "9em" }}>
                 <Row>
-                    <Col lg={3} xs={4}  className="p-0">
-                        <Image 
+                    <Col lg={3} xs={4} className="p-0">
+                        <Image
                             src={card_img}
-                            rounded 
-                            className="user-photo"/>
+                            rounded
+                            className="user-photo" />
                     </Col>
                     <Col lg={9} xs={8} className="p-4">
                         <h4>Elizabeth Olsen</h4>
@@ -32,8 +33,10 @@ const Profile  = () => {
                         <p>29 years old</p>
                     </Col>
                 </Row>
-                
             </Container>
+            <Row >
+                //for tab
+            </Row>
         </div>
     )
 }
