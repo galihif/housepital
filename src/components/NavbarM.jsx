@@ -6,8 +6,6 @@ import {
     Button,
     Navbar,
     Nav,
-    Container,
-    FormControl
  } from 'react-bootstrap';
 
  //Images
