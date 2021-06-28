@@ -16,7 +16,7 @@ import navbar_logo from '../assets/navbar_logo.png'
 
 const Footer = () => {
     return (
-        <div style={{height:"12em"}} className="p-5">
+        <div style={{height:"12em", backgroundColor:"white"}} className="p-5">
             <div className="d-flex justify-content-center align-items-center">
                 <Navbar.Brand href="/">
                     <img
