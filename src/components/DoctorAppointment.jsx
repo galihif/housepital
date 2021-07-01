@@ -2,7 +2,7 @@
 import React,{useState} from 'react'
 
 //Styles
-import './AppointmentCard.scss'
+import './DoctorAppointment.scss'
 import { 
     Button,
     Card,
