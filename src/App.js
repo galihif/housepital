@@ -23,6 +23,7 @@ import Register from "./pages/Register";
 import Profile from "./pages/Profile";
 import Admin from "./pages/Admin";
 import Footer from "./components/Footer";
+import AppointmentDetailsAdmin from "./pages/AppointmentDetailsAdmin";
 
 function App() {
   return (
@@ -32,8 +33,11 @@ function App() {
           <NavbarM />
           <div>
             <Switch>
-              <Route path="/admin">
+              <Route exact path="/admin">
                 <Admin/>
+              </Route>
+              <Route path="/admin/appointmentdetails">
+                <AppointmentDetailsAdmin/>
               </Route>
               <Route path="/profile">
                 <Profile />

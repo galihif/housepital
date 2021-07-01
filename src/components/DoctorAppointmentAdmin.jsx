@@ -32,7 +32,7 @@ const DoctorAppointmentAdmin = (props) => {
                     </div>
                 </Col>
                 <Col lg={2} className="d-flex align-items-end p-0">
-                    <Button variant="primary mb-2" size="sm">Detail</Button>
+                    <Button variant="primary mb-2" size="sm" href="/admin/appointmentdetails">Detail</Button>
                 </Col>
             </Row>
         </div>
