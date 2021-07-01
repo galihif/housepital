@@ -42,50 +42,19 @@ const AppointmentSchedule = (props) => {
                 </Col>
             </Row>
 
-            <Modal show={show} onHide={toggleDialog} size="sm">
+            <Modal show={show} onHide={toggleDialog} size="md">
                 <Modal.Header closeButton>
-                    <Modal.Title>Book an Appointment</Modal.Title>
+                    <Modal.Title>Cancel Appointment</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="px-lg-4">
-                    <Row className="my-2">
-                        <Col lg={4}>
-                            <p>Doctor Name</p>
-                        </Col>
-                        <Col lg={8}>
-                            <p className="text-right">{props.doctorName}</p>
-                        </Col>
-                    </Row>
-                    <Row className="my-2">
-                        <Col lg={4}>
-                            <p>Type</p>
-                        </Col>
-                        <Col lg={8}>
-                            <p className="text-right">{props.type}</p>
-                        </Col>
-                    </Row>
-                    <Row className="my-2">
-                        <Col lg={4}>
-                            <p>Date</p>
-                        </Col>
-                        <Col lg={8}>
-                            <Form.Control type="date" placeholder="Enter Date" />
-                        </Col>
-                    </Row>
-                    <Row className="my-2">
-                        <Col lg={4}>
-                            <p>Time</p>
-                        </Col>
-                        <Col lg={8}>
-                            <Form.Control type="time" placeholder="Enter Date" />
-                        </Col>
-                    </Row>
+                    <p>Are you sure want to cancel this appointment?</p>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={toggleDialog}>
-                        Cancel
+                        Yes
                     </Button>
                     <Button variant="primary" onClick={toggleDialog}>
-                        Book Appointment
+                        No
                     </Button>
                 </Modal.Footer>
             </Modal>
