@@ -21,6 +21,7 @@ import NavbarM from "./components/NavbarM";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Profile from "./pages/Profile";
+import Admin from "./pages/Admin";
 import Footer from "./components/Footer";
 
 function App() {
@@ -31,6 +32,9 @@ function App() {
           <NavbarM />
           <div>
             <Switch>
+              <Route path="/admin">
+                <Admin/>
+              </Route>
               <Route path="/profile">
                 <Profile />
               </Route>

@@ -15,7 +15,7 @@ import {
  //Images
 import card_img from '../assets/card_img.png'
 
-const AppointmentCard = (props) => {
+const DoctorAppointment = (props) => {
     //state
     const [show, setShow] = useState(false);
 
@@ -86,4 +86,4 @@ const AppointmentCard = (props) => {
     )
 }
 
-export default AppointmentCard
+export default DoctorAppointment
