@@ -5,6 +5,12 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import { Provider } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
+
+//Config Lib
+import { store, persistor } from './config/store'
+
 
 //styling
 import logo from './logo.svg';
@@ -21,26 +27,30 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <Router>
-        <NavbarM />
-        <div>
-          <Switch>
-            <Route path="/profile">
-              <Profile/>
-            </Route>
-            <Route path="/login">
-              <Login />
-            </Route>
-            <Route path="/register">
-              <Register />
-            </Route>
-            <Route exact path="/">
-              <Home />
-            </Route>
-          </Switch>
-        </div>
-        <Footer/>
-    </Router>
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <Router>
+          <NavbarM />
+          <div>
+            <Switch>
+              <Route path="/profile">
+                <Profile />
+              </Route>
+              <Route path="/login">
+                <Login />
+              </Route>
+              <Route path="/register">
+                <Register />
+              </Route>
+              <Route exact path="/">
+                <Home />
+              </Route>
+            </Switch>
+          </div>
+          <Footer />
+        </Router>
+      </PersistGate>
+    </Provider>
   );
 }
 

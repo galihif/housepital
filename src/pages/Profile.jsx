@@ -1,5 +1,6 @@
 // Libraries
-import React,{useState} from 'react'
+import React, { useState } from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 
 //Styles
 import './Profile.scss'
@@ -19,7 +20,10 @@ import AppointmentSchedule from '../components/AppointmentSchedule';
 
 //Components
 
-const Profile  = () => {
+const Profile = () => {
+    const dispatch = useDispatch()
+    const state = useSelector((state) => state)
+    console.log(state)
     //State
     const [appointmentSchedules, setAppointmentSchedules] = useState([1,2,3])
     
