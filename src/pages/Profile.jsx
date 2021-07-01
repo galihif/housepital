@@ -11,7 +11,6 @@ import {
     Col,
     Tab,
     Tabs,
-    Button
 } from 'react-bootstrap';
 
 //image

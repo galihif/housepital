@@ -3,17 +3,15 @@ import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 
-//Config Lib
+//Config
 import { store, persistor } from './config/store'
 
 
 //styling
-import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
