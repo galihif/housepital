@@ -10,7 +10,7 @@ import {
     Form,
     FormControl
  } from 'react-bootstrap';
-import AppointmentCard from './AppointmentCard';
+import DoctorAppointment from './DoctorAppointment';
 
 
 const SearchDoctors = () => {
@@ -32,22 +32,22 @@ const SearchDoctors = () => {
             </Row>
             <Row className="px-5 d-flex justify-content-center">
                 <Col lg={3} className="d-flex justify-content-center mb-3">
-                    <AppointmentCard
+                    <DoctorAppointment
                         doctorName="Bruce Banner"
                         type="Gamma Scientist"/>
                 </Col>
                 <Col lg={3} className="d-flex justify-content-center mb-3">
-                    <AppointmentCard
+                    <DoctorAppointment
                         doctorName="Natasha Romanoff"
                         type="Special Spy"/>
                 </Col>
                 <Col lg={3} className="d-flex justify-content-center mb-3">
-                    <AppointmentCard
+                    <DoctorAppointment
                         doctorName="Dr. Stephen Strange"
                         type="Medical Check Up"/>
                 </Col>
                 <Col lg={3} className="d-flex justify-content-center mb-3">
-                    <AppointmentCard
+                    <DoctorAppointment
                         doctorName="Dr. Stephen Strange"
                         type="Neurosurgeon Specialist"/>
                 </Col>
