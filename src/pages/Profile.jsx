@@ -11,6 +11,8 @@ import {
     Col,
     Tab,
     Tabs,
+    Form,
+    Button
 } from 'react-bootstrap';
 
 //image
@@ -24,7 +26,7 @@ const Profile = () => {
     const state = useSelector((state) => state)
     console.log(state)
     //State
-    const [appointmentSchedules, setAppointmentSchedules] = useState([1,2,3])
+    const [appointmentSchedules, setAppointmentSchedules] = useState([1])
     
     return(
         <div className="">
@@ -36,10 +38,15 @@ const Profile = () => {
                             rounded
                             className="user-photo" />
                     </Col>
-                    <Col lg={9} xs={8} className="p-4">
+                    <Col lg={6} xs={8} className="p-4">
                         <h4>Elizabeth Olsen</h4>
                         <p className="text-muted">@eliolsen24</p>
                         <p>29 years old</p>
+                    </Col>
+                    <Col lg={3} className="p-4">
+                        <Button variant="danger mx-auto d-flex justify-content-center" size="sm" type="submit">
+                            Logout
+                        </Button>
                     </Col>
                 </Row>
             </Container>
@@ -50,6 +57,13 @@ const Profile = () => {
                         <Tabs defaultActiveKey="appointments" id="uncontrolled-tab-example">
                             <Tab eventKey="appointments" title="Appointments">
                                 <div className="tab-container p-5">
+                                    {
+                                        appointmentSchedules.length === 0? (
+                                            <div className="p-5">
+                                                <p className="text-center">You have no appointment</p>
+                                            </div>
+                                        ) : null
+                                    }
                                     {
                                         appointmentSchedules.map((key,appointmentSchedule) => {
                                             return key === appointmentSchedules.length ? (
@@ -65,8 +79,24 @@ const Profile = () => {
                                 </div>
                             </Tab>
                             <Tab eventKey="settings" title="Settings">
-                                <div className="tab-container">
-                                    dfdf
+                                <div className="tab-container p-5">
+                                    <Form>
+                                        <Form.Group className="mb-3" controlId="firstName">
+                                            <Form.Label>First Name</Form.Label>
+                                            <Form.Control type="text" placeholder="Enter First Name" />
+                                        </Form.Group>
+                                        <Form.Group className="mb-3" controlId="lastName">
+                                            <Form.Label>Last Name</Form.Label>
+                                            <Form.Control type="text" placeholder="Enter Last Name" />
+                                        </Form.Group>
+                                        <Form.Group className="mb-3" controlId="age">
+                                            <Form.Label>Age</Form.Label>
+                                            <Form.Control type="number" placeholder="Enter Age" />
+                                        </Form.Group>
+                                        <Button variant="primary" type="submit">
+                                            Save
+                                        </Button>
+                                    </Form>
                                 </div>
                             </Tab>
                         </Tabs></Col>
