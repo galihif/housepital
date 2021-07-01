@@ -1,5 +1,5 @@
 // Libraries
-import React from 'react'
+import React,{useState} from 'react'
 
 //Styles
 import './Profile.scss'
@@ -21,7 +21,7 @@ import AppointmentSchedule from '../components/AppointmentSchedule';
 
 const Profile  = () => {
     //State
-    
+    const [appointmentSchedules, setAppointmentSchedules] = useState([1,2,3])
     
     return(
         <div className="">
@@ -43,13 +43,22 @@ const Profile  = () => {
             
             <Container className="my-5 mx-5 mx-lg-auto" style={{ width: "40em" }}>
                 <Row>
-                    <Col>
+                    <Col className="p-0">
                         <Tabs defaultActiveKey="appointments" id="uncontrolled-tab-example">
                             <Tab eventKey="appointments" title="Appointments">
                                 <div className="tab-container p-5">
-                                    <AppointmentSchedule/>
-                                    <AppointmentSchedule/>
-                                    <AppointmentSchedule/>
+                                    {
+                                        appointmentSchedules.map((key,appointmentSchedule) => {
+                                            return key === appointmentSchedules.length ? (
+                                                <AppointmentSchedule/>
+                                            ) : (
+                                                <div>
+                                                    <AppointmentSchedule/>
+                                                    <hr/>
+                                                </div>
+                                            )
+                                        })
+                                    }
                                 </div>
                             </Tab>
                             <Tab eventKey="settings" title="Settings">
