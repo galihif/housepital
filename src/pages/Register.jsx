@@ -1,5 +1,10 @@
 //Library
 import React, {useState} from 'react'
+import { useHistory } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+
+//Config
+import firebase,{auth,firestore} from '../config/firebase'
 
 //Styles
 import './Register.scss'
@@ -13,6 +18,10 @@ import {
 } from 'react-bootstrap';
 
 const Register  = () => {
+    const history = useHistory()
+    const dispatch = useDispatch()
+    const state = useSelector((state) => state)
+
     //state
     const [firstName, setFirstName] = useState()
     const [lastName, setLastName] = useState()
@@ -20,6 +29,8 @@ const Register  = () => {
     const [username, setUsername] = useState()
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
+    const [error, setError] = useState()
+    const [user, setUser] = useState({})
 
     //method
     const handleChange = (e) => {
@@ -48,7 +59,38 @@ const Register  = () => {
     }
 
     const handleRegister = () => {
-        console.log(firstName,lastName,age,username,email,password)
+        auth.createUserWithEmailAndPassword(email,password)
+            .then((userCredential) => {
+                var user = userCredential.user;
+                user.updateProfile({
+                    displayName: `${firstName} ${lastName}`
+                }).then(() => {
+                    saveUser(user.uid)
+                })
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                setError(errorMessage)
+            });
+    }
+
+    const saveUser = (id) => {
+        const user = {
+            id: id,
+            firstName: firstName,
+            lastName: lastName,
+            age: age,
+            username: username,
+            email: email,
+            password: password,
+            role: 'patient'
+        }
+        firestore.collection("Patient").doc(id).set(user)
+        .then(() => {
+            history.push("/profile")
+            dispatch({type:"LOGIN", user: user, userRole:"patient"})
+        })
     }
 
     return(
@@ -131,6 +173,15 @@ const Register  = () => {
                         </Form>
                     </Col>
                 </Row>
+                {
+                    typeof error !== "undefined" ? (
+                        <Row className="mt-4">
+                            <Col>
+                                <p className="text-danger">{error}</p>
+                            </Col>
+                        </Row>
+                    ): null
+                }
                 <Row className="mt-4">
                     <Col>
                         <Button variant="primary btn-block" onClick={handleRegister}>Register</Button>
