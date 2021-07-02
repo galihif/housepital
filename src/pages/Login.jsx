@@ -1,5 +1,10 @@
 //Library
-import React from 'react'
+import React, { useState } from 'react'
+import { useHistory } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+
+//Config
+import firebase, { auth, firestore } from '../config/firebase'
 
 //Styles
 import './Login.scss'
@@ -12,7 +17,44 @@ import {
     Form
 } from 'react-bootstrap';
 
-const Login  = () => {
+const Login = () => {
+    const history = useHistory()
+    const dispatch = useDispatch()
+    const state = useSelector((state) => state)
+    //state
+    const [email, setEmail] = useState()
+    const [password, setPassword] = useState()
+
+    //method
+    const handleChange = (e) => {
+        switch (e.target.id) {
+            case "email":
+                setEmail(e.target.value)
+                break
+            case "password":
+                setPassword(e.target.value)
+                break
+            default:
+                break
+        }
+    }
+
+    const handleLogin = () => {
+        auth.signInWithEmailAndPassword(email,password)
+            .then((userCredential) => {
+                let user = userCredential.user
+                getUser(user.uid)
+            })
+    }
+
+    const getUser = (id) => {
+        firestore.collection("Patients").doc(id).get()
+            .then((doc) => {
+                let user = doc.data()
+                dispatch({ type: "LOGIN", userData: user})
+                history.push("/profile")
+            })
+    }
     return(
         <div className="d-flex justify-content-center align-items-center">
             <Container className="login-container my-5 p-5" style={{width:"28em"}}>
@@ -21,6 +63,8 @@ const Login  = () => {
                     <Col>
                         <Form className="d-flex">
                             <FormControl
+                                onChange={handleChange}
+                                id="email"
                                 type="email"
                                 placeholder="Email"
                                 aria-label="Email"
@@ -32,6 +76,8 @@ const Login  = () => {
                     <Col>
                         <Form className="d-flex">
                             <FormControl
+                                onChange={handleChange}
+                                id="password"
                                 type="password"
                                 placeholder="Password"
                                 aria-label="Password"
@@ -41,7 +87,7 @@ const Login  = () => {
                 </Row>
                 <Row className="mt-4">
                     <Col>
-                        <Button variant="primary btn-block">Login</Button>
+                        <Button variant="primary btn-block" onClick={handleLogin}>Login</Button>
                     </Col>
                 </Row>
                 <p className="text-center my-1">or</p>
