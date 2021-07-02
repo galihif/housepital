@@ -1,6 +1,10 @@
 // Libraries
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+
+//Config
+import firebase, { auth, firestore } from '../config/firebase'
 
 //Styles
 import './Profile.scss'
@@ -16,22 +20,39 @@ import {
 } from 'react-bootstrap';
 
 //image
-import card_img from '../assets/card_img.png'
+import profile_img from '../assets/profile_img.png'
 import AppointmentSchedule from '../components/AppointmentSchedule';
 
 //Components
 
 const Profile = () => {
+    const history = useHistory()
     const dispatch = useDispatch()
     const state = useSelector((state) => state)
     
     //State
     const [appointmentSchedules, setAppointmentSchedules] = useState([])
-    const [firstName, setFirstName] = useState()
-    const [lastName, setLastName] = useState()
-    const [age, setAge] = useState()
-    const [username, setUsername] = useState()
+    const [user, setUser] = useState(state.userData)
+    const [id, setId] = useState(user.id)
+    const [firstName, setFirstName] = useState(user.firstName)
+    const [lastName, setLastName] = useState(user.lastName)
+    const [age, setAge] = useState(user.age)
+    const [username, setUsername] = useState(user.username)
+    console.log(user,"user")
+    console.log(state.userData,"userData")
 
+    //Method
+    useEffect(() => {
+        
+    });
+
+    const handleLogout = () => {
+        auth.signOut()
+            .then(() => {
+                history.push("/login")
+                dispatch({type: "LOGOUT"})
+            })
+    }
     
     return(
         <div className="">
@@ -39,17 +60,17 @@ const Profile = () => {
                 <Row>
                     <Col lg={3} xs={4} className="p-0">
                         <Image
-                            src={card_img}
+                            src={profile_img}
                             rounded
                             className="user-photo" />
                     </Col>
                     <Col lg={6} xs={8} className="p-4">
-                        <h4>Elizabeth Olsen</h4>
-                        <p className="text-muted">@eliolsen24</p>
-                        <p>29 years old</p>
+                        <h4>{firstName+" "+lastName}</h4>
+                        <p className="text-muted">@{username}</p>
+                        <p>{age} years old</p>
                     </Col>
                     <Col lg={3} className="p-4">
-                        <Button variant="danger mx-auto d-flex justify-content-center" size="sm" type="submit">
+                        <Button onClick={handleLogout} variant="danger mx-auto d-flex justify-content-center" size="sm" type="submit">
                             Logout
                         </Button>
                     </Col>
@@ -88,15 +109,15 @@ const Profile = () => {
                                     <Form>
                                         <Form.Group className="mb-3" controlId="firstName">
                                             <Form.Label>First Name</Form.Label>
-                                            <Form.Control type="text" placeholder="Enter First Name" />
+                                            <Form.Control type="text" placeholder="Enter First Name" value={firstName} />
                                         </Form.Group>
                                         <Form.Group className="mb-3" controlId="lastName">
                                             <Form.Label>Last Name</Form.Label>
-                                            <Form.Control type="text" placeholder="Enter Last Name" />
+                                            <Form.Control type="text" placeholder="Enter Last Name" value={lastName} />
                                         </Form.Group>
                                         <Form.Group className="mb-3" controlId="age">
                                             <Form.Label>Age</Form.Label>
-                                            <Form.Control type="number" placeholder="Enter Age" />
+                                            <Form.Control type="number" placeholder="Enter Age" value={age} />
                                         </Form.Group>
                                         <Button variant="primary" type="submit">
                                             Save
