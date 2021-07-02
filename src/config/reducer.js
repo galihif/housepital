@@ -1,7 +1,7 @@
 const initialState = {
     isLogged: false,
     userRole: "",
-    patientData: {},
+    user: {},
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -10,21 +10,23 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLogged: true,
-                patientData: action.patientData,
+                user: action.user,
                 userRole: action.userRole
             }
         case "LOGOUT":
             return {
                 ...state,
                 isLogged: false,
-                patientData: {},
+                user: {},
                 userRole:""
             }
         case "changeUserName":
             return {
                 ...state,
-                patientData: action.patientData
+                user: action.user
             }
+        case "RESET":
+            return initialState
         default: 
         return state
     }
