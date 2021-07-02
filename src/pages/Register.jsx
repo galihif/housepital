@@ -86,11 +86,11 @@ const Register  = () => {
             password: password,
             role: 'patient'
         }
-        firestore.collection("Patient").doc(id).set(user)
-        .then(() => {
-            history.push("/profile")
-            dispatch({type:"LOGIN", user: user, userRole:"patient"})
-        })
+        firestore.collection("Patients").doc(id).set(user)
+            .then(() => {
+                history.push("/profile")
+                dispatch({ type: "LOGIN", userData: user, userRole:"patient"})
+            })
     }
 
     return(
