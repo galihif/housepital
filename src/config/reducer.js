@@ -1,7 +1,7 @@
 const initialState = {
     isLogged: false,
     userRole: "",
-    user: {},
+    userData: {},
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -10,20 +10,20 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isLogged: true,
-                user: action.user,
+                userData: action.userData,
                 userRole: action.userRole
             }
         case "LOGOUT":
             return {
                 ...state,
                 isLogged: false,
-                user: {},
+                userData: {},
                 userRole:""
             }
         case "changeUserName":
             return {
                 ...state,
-                user: action.user
+                userData: action.userData
             }
         case "RESET":
             return initialState
