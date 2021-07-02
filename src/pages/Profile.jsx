@@ -24,9 +24,14 @@ import AppointmentSchedule from '../components/AppointmentSchedule';
 const Profile = () => {
     const dispatch = useDispatch()
     const state = useSelector((state) => state)
-    console.log(state)
+    
     //State
-    const [appointmentSchedules, setAppointmentSchedules] = useState([1])
+    const [appointmentSchedules, setAppointmentSchedules] = useState([])
+    const [firstName, setFirstName] = useState()
+    const [lastName, setLastName] = useState()
+    const [age, setAge] = useState()
+    const [username, setUsername] = useState()
+
     
     return(
         <div className="">
