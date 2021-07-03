@@ -21,14 +21,14 @@ const DoctorAppointmentAdmin = (props) => {
             <Row className="my-4">
                 <Col lg={4} className="d-flex justify-content-center">
                     <Image
-                        src={card_img}
+                        src={props.photo}
                         rounded
                         className="doc-photo" />
                 </Col>
                 <Col lg={6} className="py-2 d-flex align-items-center">
                     <div>
-                        <h5 className="m-0">Dr. Udin Petot</h5>
-                        <p className="text-muted my-2">Medical Check Up</p>
+                        <h5 className="m-0">{props.doctorName}</h5>
+                        <p className="text-muted my-2">{props.type}</p>
                     </div>
                 </Col>
                 <Col lg={2} className="d-flex align-items-end p-0">

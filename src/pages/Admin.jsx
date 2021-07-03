@@ -1,6 +1,6 @@
 // Libraries
-import React, { useState } from 'react'
-import { useHistory, useParams } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 //Config
@@ -30,7 +30,7 @@ const Admin = () => {
     const state = useSelector((state) => state)
     
     //State
-    const [appointmentSchedules, setAppointmentSchedules] = useState([])
+    const [doctorAppointments, setDoctorAppointments] = useState([])
     const [show, setShow] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -40,7 +40,22 @@ const Admin = () => {
     const [photo, setPhoto] = useState("");
 
     //method
+    useEffect(() => {
+        getDoctorAppointments()
+    })
+
     const toggleDialog = () => setShow(!show);
+
+    const getDoctorAppointments = () => {
+        firestore.collection("DoctorAppointments")
+            .onSnapshot((snapshot) => {
+                const items = []
+                snapshot.forEach((doc) => {
+                    items.push(doc.data())
+                })
+                setDoctorAppointments(items)
+            })
+    }
 
     const handleLogout = () => {
         auth.signOut()
@@ -65,16 +80,8 @@ const Admin = () => {
 
     const handleChangePhoto = (e) => {
         const uploadPhoto = e.target.files[0]
-        const path = `doctorAppointments/${id}`
-        storage.ref(path)
-            .put(uploadPhoto)
-            .then((snapshot) => {
-                storage.ref(path)
-                    .getDownloadURL()
-                    .then(URL => {
-                        setPhoto(URL)
-                    })
-            })
+        setPhoto(uploadPhoto)
+        
     }
 
     const handleAdd = () => {
@@ -85,11 +92,22 @@ const Admin = () => {
             type: type,
             photo: photo
         }
-        firestore.collection("DoctorAppointments").doc(id).set(doctorAppointment)
-            .then(() => {
-                setLoading(false)
-                setShowAlert(true)
-                toggleDialog()
+        const path = `doctorAppointments/${id}`
+        storage.ref(path)
+            .put(photo)
+            .then((snapshot) => {
+                storage.ref(path)
+                    .getDownloadURL()
+                    .then(URL => {
+                        setPhoto(URL)
+                        doctorAppointment.photo = URL
+                        firestore.collection("DoctorAppointments").doc(id).set(doctorAppointment)
+                            .then(() => {
+                                setLoading(false)
+                                setShowAlert(true)
+                                toggleDialog()
+                            })
+                    })
             })
     }
     
@@ -111,19 +129,25 @@ const Admin = () => {
                 </Alert>
                 <div className="admin-app-container p-5">
                     {
-                        appointmentSchedules.length === 0 ? (
+                        doctorAppointments.length === 0 ? (
                             <div className="p-5">
                                 <p className="text-center">You have no appointment</p>
                             </div>
                         ) : null
                     }
                     {
-                        appointmentSchedules.map((key, appointmentSchedule) => {
-                            return key === appointmentSchedules.length ? (
-                                <DoctorAppointmentAdmin />
+                        doctorAppointments.map((doc,key) => {
+                            return key === doctorAppointments.length ? (
+                                <DoctorAppointmentAdmin 
+                                    doctorName={doc.doctorName}
+                                    type={doc.type}
+                                    photo={doc.photo}/>
                             ) : (
                                 <div>
-                                    <DoctorAppointmentAdmin />
+                                    <DoctorAppointmentAdmin
+                                        doctorName={doc.doctorName}
+                                        type={doc.type}
+                                        photo={doc.photo}/>
                                     <hr />
                                 </div>
                             )
