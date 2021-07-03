@@ -24,6 +24,7 @@ const Login = () => {
     //state
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()
+    const [error, setError] = useState()
 
     //method
     const handleChange = (e) => {
@@ -44,6 +45,10 @@ const Login = () => {
             .then((userCredential) => {
                 let user = userCredential.user
                 getUser(user.uid)
+            })
+            .catch((error) => {
+                var errorMessage = error.message;
+                setError(errorMessage)
             })
     }
 
@@ -85,6 +90,15 @@ const Login = () => {
                         </Form>
                     </Col>
                 </Row>
+                {
+                    typeof error !== "undefined" ? (
+                        <Row className="mt-4">
+                            <Col>
+                                <p className="text-danger">{error}</p>
+                            </Col>
+                        </Row>
+                    ) : null
+                }
                 <Row className="mt-4">
                     <Col>
                         <Button variant="primary btn-block" onClick={handleLogin}>Login</Button>
