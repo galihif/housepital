@@ -4,7 +4,7 @@ import { useHistory, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 //Config
-import firebase, { auth, firestore } from '../config/firebase'
+import { auth, firestore } from '../config/firebase'
 
 //Styles
 import './Profile.scss'
