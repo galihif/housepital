@@ -86,7 +86,11 @@ const Register  = () => {
         }
         firestore.collection("Patients").doc(id).set(user)
             .then(() => {
-                history.push(`/profile/${id}`)
+                if (user.role === "admin") {
+                    history.push(`/admin`)
+                } else {
+                    history.push(`/profile/${id}`)
+                }
                 dispatch({ type: "LOGIN", userData: user})
             })
     }

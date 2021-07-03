@@ -57,7 +57,11 @@ const Login = () => {
             .then((doc) => {
                 let user = doc.data()
                 dispatch({ type: "LOGIN", userData: user})
-                history.push(`/profile/${id}`)
+                if (user.role === "admin") {
+                    history.push(`/admin`)
+                } else {
+                    history.push(`/profile/${id}`)
+                }
             })
     }
     return(
