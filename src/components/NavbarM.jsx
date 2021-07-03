@@ -37,7 +37,7 @@ const NavbarM = () => {
         })
     }
 
-    let button = <Button className="mx-2" variant="primary" href={`profile/${state.userData.id}`}>Profile</Button>
+    let button = <Button className="mx-2" variant="primary" href={`/profile/${state.userData.id}`}>Profile</Button>
 
     if(state.userData.role === "admin"){
         button = <Button className="mx-2" variant="primary" href={`/admin`}>Admin</Button>

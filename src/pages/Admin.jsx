@@ -1,6 +1,10 @@
 // Libraries
 import React, { useState } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+
+//Config
+import { auth, firestore } from '../config/firebase'
 
 //Styles
 import './Admin.scss'
@@ -22,6 +26,7 @@ import DoctorAppointmentAdmin from '../components/DoctorAppointmentAdmin';
 //Components
 
 const Admin = () => {
+    const history = useHistory()
     const dispatch = useDispatch()
     const state = useSelector((state) => state)
     
@@ -31,12 +36,23 @@ const Admin = () => {
 
     //method
     const toggleDialog = () => setShow(!show);
+
+    const handleLogout = () => {
+        auth.signOut()
+            .then(() => {
+                history.push("/login")
+                dispatch({ type: "LOGOUT" })
+            })
+    }
     
     return(
         <div className="">
             <Container className="mx-5 my-3 mt-5 mx-lg-auto" style={{ width: "40em" }}>
                 <p className="text-center admin-title">Administrator</p>
-                <Button variant="primary mb-2" size="sm" onClick={toggleDialog}>Add Appointment</Button>
+                <Row className="d-flex justify-content-between m-0">
+                    <Button variant="primary mb-2" size="sm" onClick={toggleDialog}>Add Appointment</Button>
+                    <Button variant="danger mb-2" size="sm" onClick={handleLogout}>Logout</Button>
+                </Row>
             </Container>
             
             <Container className="mb-5 mx-5 mx-lg-auto" style={{ width: "40em" }}>
