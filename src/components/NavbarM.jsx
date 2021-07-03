@@ -36,6 +36,12 @@ const NavbarM = () => {
             }
         })
     }
+
+    let button = <Button className="mx-2" variant="primary" href={`profile/${state.userData.id}`}>Profile</Button>
+
+    if(state.userData.role === "admin"){
+        button = <Button className="mx-2" variant="primary" href={`/admin`}>Admin</Button>
+    }
     
     return (
         <div>
@@ -56,9 +62,7 @@ const NavbarM = () => {
                         <Nav.Link href="/">Home</Nav.Link>
                     </Nav>
                     {
-                        isLogged ? (
-                            <Button className="mx-2" variant="primary" href={`profile/${state.userData.id}`}>Profile</Button>
-                        ) : (
+                        isLogged ? button : (
                             <div>
                                 <Button className="mx-2" variant="outline-primary" href="/login">Login</Button>
                                 <Button className="mx-2" variant="primary" href="/register">Register</Button>
