@@ -4,23 +4,22 @@ import { useHistory, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 //Config
-import { auth, firestore } from '../config/firebase'
+import { auth, firestore, storage } from '../config/firebase'
 
 //Styles
 import './Admin.scss'
 import {
     Container,
-    Image,
+    Alert,
     Row,
     Col,
     Modal,
-    Tabs,
+    Spinner,
     Form,
     Button
 } from 'react-bootstrap';
 
 //image
-import card_img from '../assets/card_img.png'
 import DoctorAppointmentAdmin from '../components/DoctorAppointmentAdmin';
 
 //Components
@@ -31,8 +30,14 @@ const Admin = () => {
     const state = useSelector((state) => state)
     
     //State
-    const [appointmentSchedules, setAppointmentSchedules] = useState([1, 2, 3, 4])
+    const [appointmentSchedules, setAppointmentSchedules] = useState([])
     const [show, setShow] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    const [loading, setLoading] = useState(false);
+    const [id, setId] = useState(new Date().getTime().toString());
+    const [doctorName, setDoctorName] = useState("");
+    const [type, setType] = useState("");
+    const [photo, setPhoto] = useState("");
 
     //method
     const toggleDialog = () => setShow(!show);
@@ -42,6 +47,49 @@ const Admin = () => {
             .then(() => {
                 history.push("/login")
                 dispatch({ type: "LOGOUT" })
+            })
+    }
+
+    const handleChange = (e) => {
+        switch(e.target.id){
+            case "doctorName":
+                setDoctorName(e.target.value)
+                break
+            case "type":
+                setType(e.target.value)
+                break
+            default:
+                break
+        }
+    }
+
+    const handleChangePhoto = (e) => {
+        const uploadPhoto = e.target.files[0]
+        const path = `doctorAppointments/${id}`
+        storage.ref(path)
+            .put(uploadPhoto)
+            .then((snapshot) => {
+                storage.ref(path)
+                    .getDownloadURL()
+                    .then(URL => {
+                        setPhoto(URL)
+                    })
+            })
+    }
+
+    const handleAdd = () => {
+        setLoading(true)
+        const doctorAppointment = {
+            id: id,
+            doctorName: doctorName,
+            type: type,
+            photo: photo
+        }
+        firestore.collection("DoctorAppointments").doc(id).set(doctorAppointment)
+            .then(() => {
+                setLoading(false)
+                setShowAlert(true)
+                toggleDialog()
             })
     }
     
@@ -56,6 +104,11 @@ const Admin = () => {
             </Container>
             
             <Container className="mb-5 mx-5 mx-lg-auto" style={{ width: "40em" }}>
+                <Alert variant="success" show={showAlert} onClose={() => setShowAlert(false)} dismissible>
+                    <p className="m-0">
+                        Appointment added!
+                    </p>
+                </Alert>
                 <div className="admin-app-container p-5">
                     {
                         appointmentSchedules.length === 0 ? (
@@ -89,7 +142,7 @@ const Admin = () => {
                             <p>Doctor Name</p>
                         </Col>
                         <Col lg={8}>
-                            <Form.Control type="text" placeholder="Enter Name" />
+                            <Form.Control onChange={handleChange} id="doctorName" type="text" placeholder="Enter Name" />
                         </Col>
                     </Row>
                     <Row className="my-2">
@@ -97,7 +150,7 @@ const Admin = () => {
                             <p>Type</p>
                         </Col>
                         <Col lg={8}>
-                            <Form.Control type="text" placeholder="Enter Type" />
+                            <Form.Control onChange={handleChange} id="type" type="text" placeholder="Enter Type" />
                         </Col>
                     </Row>
                     <Row className="my-2">
@@ -105,7 +158,7 @@ const Admin = () => {
                             <p>Photo</p>
                         </Col>
                         <Col lg={8}>
-                            <Form.Control type="file" placeholder="Upload Photo" />
+                            <Form.Control onChange={handleChangePhoto} type="file" placeholder="Upload Photo" />
                         </Col>
                     </Row>
                 </Modal.Body>
@@ -113,9 +166,24 @@ const Admin = () => {
                     <Button variant="secondary" onClick={toggleDialog}>
                         Cancel
                     </Button>
-                    <Button variant="primary" onClick={toggleDialog}>
-                        Add
-                    </Button>
+                    {
+                        loading ? (
+                            <Button variant="primary" disabled>
+                                <Spinner
+                                    as="span"
+                                    animation="grow"
+                                    size="sm"
+                                    role="status"
+                                    aria-hidden="true"
+                                />
+                                Loading...
+                            </Button>
+                        ) : (
+                            <Button variant="primary" onClick={handleAdd}>
+                                Add
+                            </Button>
+                        )
+                    }
                 </Modal.Footer>
             </Modal>
             
