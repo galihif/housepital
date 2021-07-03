@@ -1,6 +1,6 @@
 // Libraries
 import React, { useState, useEffect } from 'react'
-import { useHistory } from 'react-router-dom'
+import { useHistory, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 //Config
@@ -28,23 +28,34 @@ import AppointmentSchedule from '../components/AppointmentSchedule';
 const Profile = () => {
     const history = useHistory()
     const dispatch = useDispatch()
-    const state = useSelector((state) => state)
+    const {id} = useParams()
+    let state = useSelector((state) => state)
     
     //State
     const [appointmentSchedules, setAppointmentSchedules] = useState([])
-    const [user, setUser] = useState(state.userData)
-    const [id, setId] = useState(user.id)
-    const [firstName, setFirstName] = useState(user.firstName)
-    const [lastName, setLastName] = useState(user.lastName)
-    const [age, setAge] = useState(user.age)
-    const [username, setUsername] = useState(user.username)
-    console.log(user,"user")
-    console.log(state.userData,"userData")
+    const [user, setUser] = useState()
+    const [firstName, setFirstName] = useState("")
+    const [lastName, setLastName] = useState("")
+    const [age, setAge] = useState("")
+    const [username, setUsername] = useState("")
 
     //Method
     useEffect(() => {
-        
-    });
+        getUser()
+    }, []);
+
+
+    const getUser = () => {
+        firestore.collection('Patients').doc(id).get()
+            .then((doc) => {
+                const fUser = doc.data()
+                setUser(fUser)
+                setFirstName(fUser.firstName)
+                setLastName(fUser.lastName)
+                setAge(fUser.age)
+                setUsername(fUser.username)
+            })
+    }
 
     const handleLogout = () => {
         auth.signOut()
@@ -52,6 +63,14 @@ const Profile = () => {
                 history.push("/login")
                 dispatch({type: "LOGOUT"})
             })
+    }
+
+    if (!state.isLogged){
+        return(
+            <Container className="p-5 d-flex justify-content-center align-items-center">
+                <h1>Not Found</h1>
+            </Container>
+        )
     }
     
     return(
