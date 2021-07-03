@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
 //Config
-import firebase, { auth, firestore } from '../config/firebase'
+import { auth, firestore } from '../config/firebase'
 
 //Styles
 import './Login.scss'
@@ -52,7 +52,7 @@ const Login = () => {
             .then((doc) => {
                 let user = doc.data()
                 dispatch({ type: "LOGIN", userData: user})
-                history.push("/profile")
+                history.push(`/profile/${id}`)
             })
     }
     return(

@@ -69,7 +69,6 @@ const Register  = () => {
                 })
             })
             .catch((error) => {
-                var errorCode = error.code;
                 var errorMessage = error.message;
                 setError(errorMessage)
             });
@@ -88,8 +87,8 @@ const Register  = () => {
         }
         firestore.collection("Patients").doc(id).set(user)
             .then(() => {
-                history.push("/profile")
-                dispatch({ type: "LOGIN", userData: user, userRole:"patient"})
+                history.push(`/profile/${id}`)
+                dispatch({ type: "LOGIN", userData: user})
             })
     }
 
