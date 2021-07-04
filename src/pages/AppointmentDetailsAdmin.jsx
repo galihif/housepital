@@ -88,6 +88,13 @@ const AppointmentDetailsAdmin = () => {
                 history.push('/admin')
             })
     }
+
+    const handleDeleteDoc = () => {
+        firestore.collection("DoctorAppointments").doc(id).delete()
+            .then(() => {
+                history.push('/admin')
+            })
+    }
     
     return(
         <div className="">
@@ -132,7 +139,7 @@ const AppointmentDetailsAdmin = () => {
                                                             rounded
                                                             className="doc-photo mt-2" />
                                                         <Button onClick={handleDeletePhoto} variant="danger mx-5" type="submit">
-                                                            Delete
+                                                            Delete Photo
                                                         </Button>
                                                     </div>
                                                 )
@@ -141,7 +148,7 @@ const AppointmentDetailsAdmin = () => {
                                     </Row>
                                     <Row className="mt-4">
                                         <Col className="d-inline-flex justify-content-end">
-                                            <Button variant="danger mx-3" type="submit">
+                                            <Button onClick={toggleDialog} variant="danger mx-3" type="submit">
                                                 Delete
                                             </Button>
                                             <Button onClick={handleSave} variant="primary" type="submit">
@@ -184,19 +191,19 @@ const AppointmentDetailsAdmin = () => {
                 </Row>
             </Container>
 
-            <Modal show={show} onHide={toggleDialog} size="sm">
+            <Modal show={show} onHide={toggleDialog} size="md">
                 <Modal.Header closeButton>
-                    <Modal.Title>Add Appointment</Modal.Title>
+                    <Modal.Title>Delete Appointment</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="px-lg-4">
-                    ssdss
+                    Are you sure want to delete this doctor appointment?
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={toggleDialog}>
                         Cancel
                     </Button>
-                    <Button variant="primary" onClick={toggleDialog}>
-                        Add
+                    <Button variant="primary" onClick={handleDeleteDoc}>
+                        Delete
                     </Button>
                 </Modal.Footer>
             </Modal>
