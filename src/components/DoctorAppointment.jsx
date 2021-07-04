@@ -51,6 +51,7 @@ const DoctorAppointment = (props) => {
             doctorId: doctorAppointment.id,
             doctorName: doctorAppointment.doctorName,
             doctorPhoto: doctorAppointment.photo,
+            doctorType: doctorAppointment.type,
             patientId: user.id,
             patientName: user.firstName+" "+user.lastName,
             date: date,
