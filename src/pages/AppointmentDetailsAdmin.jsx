@@ -1,5 +1,5 @@
 // Libraries
-import React, { useState } from 'react'
+import React, { useState, useEffect} from 'react'
 import { useHistory, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -43,7 +43,23 @@ const AppointmentDetailsAdmin = () => {
     const [photo, setPhoto] = useState(doctorAppointment.photo);
 
     //method
+    useEffect(() => {
+        getAppSched()
+    })
+
     const toggleDialog = () => setShow(!show);
+
+    const getAppSched = () => {
+        firestore.collection("AppointmentSchedules")
+            .where("doctorId", "==", id)
+            .get().then((snapshot) => {
+                const items = []
+                snapshot.forEach((doc) => {
+                    items.push(doc.data())
+                })
+                setAppointmentSchedules(items)
+            })
+    }
 
     const handleChange = (e) => {
         switch (e.target.id) {
@@ -169,20 +185,34 @@ const AppointmentDetailsAdmin = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>
-                                                    <Badge variant="secondary">Not Completed</Badge>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Mark</td>
-                                                <td>Otto</td>
-                                                <td>
-                                                    <Badge variant="secondary">Not Completed</Badge>
-                                                </td>
-                                            </tr>
+                                            {
+                                                appointmentSchedules.length === 0 ? (
+                                                    <tr>
+                                                        <td colSpan="3" className="text-center">This doctor have no appointment schedule</td>
+                                                    </tr>
+                                                ) :null
+                                            }
+                                            {
+                                                appointmentSchedules.map((app) => {
+                                                    return(
+                                                        <tr>
+                                                            <td>{app.patientName}</td>
+                                                            <td>{app.date} {app.tine}</td>
+                                                            <td>
+                                                                {
+                                                                    app.isCancelled ? (
+                                                                        <Badge variant="danger">Cancelled</Badge>
+                                                                    ) : app.isCompleted ? (
+                                                                        <Badge variant="success">Completed</Badge>
+                                                                    ) : (
+                                                                        <Badge variant="secondary">Not Completed</Badge>
+                                                                    )
+                                                                }
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                })
+                                            }
                                         </tbody>
                                     </Table>
                                 </div>
