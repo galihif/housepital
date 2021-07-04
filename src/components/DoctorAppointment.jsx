@@ -18,17 +18,18 @@ import card_img from '../assets/card_img.png'
 const DoctorAppointment = (props) => {
     //state
     const [show, setShow] = useState(false);
+    const [doctorAppointment, setDoctorAppointment] = useState(props.doctorAppointment)
 
     //method
     const toggleDialog = () => setShow(!show);
     return (
         <div>
             <Card style={{ width: '16rem' }} className="app-card">
-                <Card.Img variant="top" src={card_img} />
+                <Card.Img variant="top" src={doctorAppointment.photo} style={{height: "10em"}} />
                 <Card.Body>
-                    <Card.Title>{props.doctorName}</Card.Title>
+                    <Card.Title>{doctorAppointment.doctorName}</Card.Title>
                     <Card.Text>
-                        {props.type}
+                        {doctorAppointment.type}
                     </Card.Text>
                     <div className="d-flex justify-content-end">
                         <Button variant="primary" onClick={toggleDialog}>Apply</Button>
@@ -45,7 +46,7 @@ const DoctorAppointment = (props) => {
                             <p>Doctor Name</p>
                         </Col>
                         <Col lg={8}>
-                            <p className="text-right">{props.doctorName}</p>
+                            <p className="text-right">{doctorAppointment.doctorName}</p>
                         </Col>
                     </Row>
                     <Row className="my-2">
@@ -53,7 +54,7 @@ const DoctorAppointment = (props) => {
                             <p>Type</p>
                         </Col>
                         <Col lg={8}>
-                            <p className="text-right">{props.type}</p>
+                            <p className="text-right">{doctorAppointment.type}</p>
                         </Col>
                     </Row>
                     <Row className="my-2">
