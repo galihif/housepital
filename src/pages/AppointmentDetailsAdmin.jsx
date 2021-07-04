@@ -1,6 +1,10 @@
 // Libraries
 import React, { useState } from 'react'
+import { useHistory, useParams } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
+
+//Config
+import { auth, firestore, storage } from '../config/firebase'
 
 //Styles
 import './Admin.scss'
@@ -27,13 +31,63 @@ import DoctorAppointmentAdmin from '../components/DoctorAppointmentAdmin';
 const AppointmentDetailsAdmin = () => {
     const dispatch = useDispatch()
     const state = useSelector((state) => state)
+    const history = useHistory()
+    const {id} = useParams()
     
     //State
-    const [appointmentSchedules, setAppointmentSchedules] = useState([1, 2, 3, 4])
+    const [doctorAppointment, setDoctorAppointment] = useState(state.doctorAppointment)
+    const [appointmentSchedules, setAppointmentSchedules] = useState([])
     const [show, setShow] = useState(false);
+    const [doctorName, setDoctorName] = useState(doctorAppointment.doctorName);
+    const [type, setType] = useState(doctorAppointment.type);
+    const [photo, setPhoto] = useState(doctorAppointment.photo);
 
     //method
     const toggleDialog = () => setShow(!show);
+
+    const handleChange = (e) => {
+        switch (e.target.id) {
+            case "doctorName":
+                setDoctorName(e.target.value)
+                break
+            case "type":
+                setType(e.target.value)
+                break
+            default:
+                break
+        }
+    }
+    const handleChangePhoto = (e) => {
+        const uploadPhoto = e.target.files[0]
+        const path = `doctorAppointments/${id}`
+        storage.ref(path)
+            .put(uploadPhoto)
+            .then((snapshot) => {
+                storage.ref(path)
+                    .getDownloadURL()
+                    .then(URL => {
+                        setPhoto(URL)
+                    })
+            })
+        
+        
+    }
+    const handleDeletePhoto = (e) => {
+        setPhoto()
+    }
+
+    const handleSave = () => {
+        const newDoctorAppointment = {
+            id: id,
+            doctorName: doctorName,
+            type: type,
+            photo: photo
+        }
+        firestore.collection("DoctorAppointments").doc(id).set(newDoctorAppointment)
+            .then(() => {
+                history.push('/admin')
+            })
+    }
     
     return(
         <div className="">
@@ -52,7 +106,7 @@ const AppointmentDetailsAdmin = () => {
                                             <p>Doctor Name</p>
                                         </Col>
                                         <Col lg={8}>
-                                            <Form.Control type="text" placeholder="Enter Name" />
+                                            <Form.Control onChange={handleChange} id="doctorName" type="text" placeholder="Enter Name" value={doctorName} />
                                         </Col>
                                     </Row>
                                     <Row className="my-2">
@@ -60,7 +114,7 @@ const AppointmentDetailsAdmin = () => {
                                             <p>Type</p>
                                         </Col>
                                         <Col lg={8}>
-                                            <Form.Control type="text" placeholder="Enter Type" />
+                                            <Form.Control onChange={handleChange} id="type" type="text" placeholder="Enter Type" value={type} />
                                         </Col>
                                     </Row>
                                     <Row className="my-2">
@@ -68,14 +122,21 @@ const AppointmentDetailsAdmin = () => {
                                             <p>Photo</p>
                                         </Col>
                                         <Col lg={8}>
-                                            <Form.Control type="file" placeholder="Upload Photo" />
-                                            <Image
-                                                src={card_img}
-                                                rounded
-                                                className="doc-photo mt-2" />
-                                            <Button variant="danger mx-5" type="submit">
-                                                Delete
-                                            </Button>
+                                            {
+                                                typeof photo === "undefined" ? (
+                                                    <Form.Control onChange={handleChangePhoto} type="file" placeholder="Upload Photo" />
+                                                ) : (
+                                                    <div>
+                                                        <Image
+                                                            src={photo}
+                                                            rounded
+                                                            className="doc-photo mt-2" />
+                                                        <Button onClick={handleDeletePhoto} variant="danger mx-5" type="submit">
+                                                            Delete
+                                                        </Button>
+                                                    </div>
+                                                )
+                                            }
                                         </Col>
                                     </Row>
                                     <Row className="mt-4">
@@ -83,7 +144,7 @@ const AppointmentDetailsAdmin = () => {
                                             <Button variant="danger mx-3" type="submit">
                                                 Delete
                                             </Button>
-                                            <Button variant="primary" type="submit">
+                                            <Button onClick={handleSave} variant="primary" type="submit">
                                                 Save
                                             </Button>
                                         </Col>

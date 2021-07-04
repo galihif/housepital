@@ -81,7 +81,6 @@ const Admin = () => {
     const handleChangePhoto = (e) => {
         const uploadPhoto = e.target.files[0]
         setPhoto(uploadPhoto)
-        
     }
 
     const handleAdd = () => {
@@ -96,7 +95,8 @@ const Admin = () => {
         storage.ref(path)
             .put(photo)
             .then((snapshot) => {
-                storage.ref(path)
+                storage.ref("doctorAppointments")
+                    .child(id)
                     .getDownloadURL()
                     .then(URL => {
                         setPhoto(URL)
@@ -139,15 +139,11 @@ const Admin = () => {
                         doctorAppointments.map((doc,key) => {
                             return key === doctorAppointments.length ? (
                                 <DoctorAppointmentAdmin 
-                                    doctorName={doc.doctorName}
-                                    type={doc.type}
-                                    photo={doc.photo}/>
+                                    doctorAppointment={doc}/>
                             ) : (
                                 <div>
                                     <DoctorAppointmentAdmin
-                                        doctorName={doc.doctorName}
-                                        type={doc.type}
-                                        photo={doc.photo}/>
+                                        doctorAppointment={doc} />
                                     <hr />
                                 </div>
                             )
