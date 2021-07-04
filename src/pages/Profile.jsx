@@ -42,7 +42,20 @@ const Profile = () => {
     //Method
     useEffect(() => {
         getUser()
+        getAppointmentSchedules()
     }, []);
+
+    const getAppointmentSchedules = () => {
+        firestore.collection("AppointmentSchedules")
+            .where("patientId", "==", id)
+            .get().then((snapshot) => {
+                const items = []
+                snapshot.forEach((doc) => {
+                    items.push(doc.data())
+                })
+                setAppointmentSchedules(items)
+            })
+    }
 
 
     const getUser = () => {
@@ -110,12 +123,14 @@ const Profile = () => {
                                         ) : null
                                     }
                                     {
-                                        appointmentSchedules.map((key,appointmentSchedule) => {
-                                            return key === appointmentSchedules.length ? (
-                                                <AppointmentSchedule/>
+                                        appointmentSchedules.map((appointmentSchedule, key) => {
+                                            return key === appointmentSchedules.length -1 ? (
+                                                <AppointmentSchedule
+                                                    appointmentSchedule={appointmentSchedule}/>
                                             ) : (
                                                 <div>
-                                                    <AppointmentSchedule/>
+                                                    <AppointmentSchedule
+                                                        appointmentSchedule={appointmentSchedule} />
                                                     <hr/>
                                                 </div>
                                             )

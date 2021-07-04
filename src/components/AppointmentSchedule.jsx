@@ -18,6 +18,8 @@ import card_img from '../assets/card_img.png'
 const AppointmentSchedule = (props) => {
     //state
     const [show, setShow] = useState(false);
+    const [appointmentSchedule, setAppointmentSchedule] = useState(props.appointmentSchedule)
+    console.log(appointmentSchedule)
 
     //method
     const toggleDialog = () => setShow(!show);
@@ -26,15 +28,15 @@ const AppointmentSchedule = (props) => {
             <Row className="my-4">
                 <Col lg={4} className="d-flex justify-content-center">
                     <Image
-                        src={card_img}
+                        src={appointmentSchedule.doctorPhoto}
                         rounded
                         className="doc-photo" />
                 </Col>
                 <Col lg={6} className="py-2 d-flex align-items-center">
                     <div>
-                        <h5 className="m-0">Dr. Udin Petot</h5>
-                        <p className="text-muted my-2">Medical Check Up</p>
-                        <p className="m-0">2021-01-01 19:00</p>
+                        <h5 className="m-0">{appointmentSchedule.doctorName}</h5>
+                        <p className="text-muted my-2">{appointmentSchedule.doctorType}</p>
+                        <p className="m-0">{appointmentSchedule.date} {appointmentSchedule.time}</p>
                     </div>
                 </Col>
                 <Col lg={2} className="d-flex align-items-end p-0">
