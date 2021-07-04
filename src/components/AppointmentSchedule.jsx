@@ -1,5 +1,6 @@
 //Library
-import React,{useState} from 'react'
+import React, { useState } from 'react'
+import { firestore } from '../config/firebase';
 
 //Styles
 import './AppointmentSchedule.scss'
@@ -9,20 +10,29 @@ import {
     Modal,
     Row,
     Col,
-    Form
+    Badge
  } from 'react-bootstrap';
 
  //Images
 import card_img from '../assets/card_img.png'
 
 const AppointmentSchedule = (props) => {
-    //state
+    //State
     const [show, setShow] = useState(false);
     const [appointmentSchedule, setAppointmentSchedule] = useState(props.appointmentSchedule)
-    console.log(appointmentSchedule)
 
-    //method
+    //Method
     const toggleDialog = () => setShow(!show);
+
+    const handleCancel = () => {
+        appointmentSchedule.isCancelled = true
+        firestore.collection("AppointmentSchedules").doc(appointmentSchedule.id)
+            .set(appointmentSchedule)
+            .then(() => {
+                alert("Appointment Cancelled")
+                toggleDialog()
+            })
+    }
     return (
         <div>
             <Row className="my-4">
@@ -40,7 +50,15 @@ const AppointmentSchedule = (props) => {
                     </div>
                 </Col>
                 <Col lg={2} className="d-flex align-items-end p-0">
-                    <Button variant="danger mb-2" size="sm" onClick={toggleDialog}>Cancel</Button>
+                    {
+                        appointmentSchedule.isCancelled ? (
+                            <Badge variant="danger">Cancelled</Badge>
+                        ) : appointmentSchedule.isCompleted ? (
+                            <Badge variant="success">Completed</Badge>
+                        ) : (
+                            <Button variant="danger mb-2" size="sm" onClick={toggleDialog}>Cancel</Button>
+                        )
+                    }
                 </Col>
             </Row>
 
@@ -52,7 +70,7 @@ const AppointmentSchedule = (props) => {
                     <p>Are you sure want to cancel this appointment?</p>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={toggleDialog}>
+                    <Button variant="secondary" onClick={handleCancel}>
                         Yes
                     </Button>
                     <Button variant="primary" onClick={toggleDialog}>
