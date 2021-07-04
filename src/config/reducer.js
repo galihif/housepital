@@ -1,6 +1,7 @@
 const initialState = {
     isLogged: false,
     userData: {},
+    doctorAppointment:{}
 }
 
 const rootReducer = (state = initialState, action) => {
@@ -21,6 +22,11 @@ const rootReducer = (state = initialState, action) => {
             return {
                 ...state,
                 userData: action.userData
+            }
+        case "setDoctorAppointment":
+            return {
+                ...state,
+                doctorAppointment: action.doctorAppointment
             }
         case "RESET":
             return initialState
