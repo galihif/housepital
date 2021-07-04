@@ -39,7 +39,7 @@ const Admin = () => {
     const [type, setType] = useState("");
     const [photo, setPhoto] = useState("");
 
-    //method
+    //Method
     useEffect(() => {
         getDoctorAppointments()
     })
