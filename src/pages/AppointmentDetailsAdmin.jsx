@@ -1,10 +1,10 @@
 // Libraries
 import React, { useState, useEffect} from 'react'
 import { useHistory, useParams } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector,  } from 'react-redux'
 
 //Config
-import { auth, firestore, storage } from '../config/firebase'
+import { firestore, storage } from '../config/firebase'
 
 //Styles
 import './Admin.scss'
@@ -22,20 +22,15 @@ import {
     Badge
 } from 'react-bootstrap';
 
-//image
-import card_img from '../assets/card_img.png'
-import DoctorAppointmentAdmin from '../components/DoctorAppointmentAdmin';
-
 //Components
 
 const AppointmentDetailsAdmin = () => {
-    const dispatch = useDispatch()
     const state = useSelector((state) => state)
     const history = useHistory()
     const {id} = useParams()
     
     //State
-    const [doctorAppointment, setDoctorAppointment] = useState(state.doctorAppointment)
+    const [doctorAppointment, ] = useState(state.doctorAppointment)
     const [appointmentSchedules, setAppointmentSchedules] = useState([])
     const [show, setShow] = useState(false);
     const [doctorName, setDoctorName] = useState(doctorAppointment.doctorName);

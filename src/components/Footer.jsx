@@ -3,12 +3,7 @@ import React from 'react'
 
 //Styles
 import { 
-    Button,
     Navbar,
-    Nav,
-    Container,
-    FormControl,
-    Row
  } from 'react-bootstrap';
 
  //Images

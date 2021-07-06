@@ -33,7 +33,7 @@ const Profile = () => {
     
     //State
     const [appointmentSchedules, setAppointmentSchedules] = useState([])
-    const [user, setUser] = useState()
+    const [, setUser] = useState()
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [age, setAge] = useState("")
@@ -43,7 +43,7 @@ const Profile = () => {
     useEffect(() => {
         getUser()
         getAppointmentSchedules()
-    }, []);
+    });
 
     const getAppointmentSchedules = () => {
         firestore.collection("AppointmentSchedules")
@@ -55,6 +55,22 @@ const Profile = () => {
                 })
                 setAppointmentSchedules(items)
             })
+    }
+
+    const handleChange = (e) => {
+        switch (e.target.id) {
+            case "firstName":
+                setFirstName(e.target.value)
+                break
+            case "lastName":
+                setLastName(e.target.value)
+                break
+            case "age":
+                setAge(e.target.value)
+                break
+            default:
+                break
+        }
     }
 
 
@@ -143,15 +159,15 @@ const Profile = () => {
                                     <Form>
                                         <Form.Group className="mb-3" controlId="firstName">
                                             <Form.Label>First Name</Form.Label>
-                                            <Form.Control type="text" placeholder="Enter First Name" value={firstName} />
+                                            <Form.Control onChange={handleChange} id="firstName" type="text" placeholder="Enter First Name" value={firstName} />
                                         </Form.Group>
                                         <Form.Group className="mb-3" controlId="lastName">
                                             <Form.Label>Last Name</Form.Label>
-                                            <Form.Control type="text" placeholder="Enter Last Name" value={lastName} />
+                                            <Form.Control onChange={handleChange} id="lastName" type="text" placeholder="Enter Last Name" value={lastName} />
                                         </Form.Group>
                                         <Form.Group className="mb-3" controlId="age">
                                             <Form.Label>Age</Form.Label>
-                                            <Form.Control type="number" placeholder="Enter Age" value={age} />
+                                            <Form.Control onChange={handleChange} id="age" type="number" placeholder="Enter Age" value={age} />
                                         </Form.Group>
                                         <Button variant="primary" type="submit">
                                             Save

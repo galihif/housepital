@@ -34,7 +34,7 @@ const Admin = () => {
     const [show, setShow] = useState(false);
     const [showAlert, setShowAlert] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [id, setId] = useState(new Date().getTime().toString());
+    const [id,] = useState(new Date().getTime().toString());
     const [doctorName, setDoctorName] = useState("");
     const [type, setType] = useState("");
     const [photo, setPhoto] = useState("");

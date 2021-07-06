@@ -1,9 +1,9 @@
 //Library
 import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 //Config
-import { auth, firestore, storage } from '../config/firebase'
+import { auth, firestore } from '../config/firebase'
 
 //Styles
 import './DoctorAppointment.scss'
@@ -16,16 +16,13 @@ import {
     Form
  } from 'react-bootstrap';
 
- //Images
-import card_img from '../assets/card_img.png'
 
 const DoctorAppointment = (props) => {
-    const dispatch = useDispatch()
     const state = useSelector((state) => state)
     //State
     const [show, setShow] = useState(false);
-    const [doctorAppointment, setDoctorAppointment] = useState(props.doctorAppointment)
-    const [user, setUser] = useState(state.userData)
+    const [doctorAppointment,] = useState(props.doctorAppointment)
+    const [user,] = useState(state.userData)
     const [date, setDate] = useState("")
     const [time, setTime] = useState("")
     const [isLogged, setLogged] = useState(false)

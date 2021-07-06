@@ -8,11 +8,8 @@ import {
     Jumbotron,
     Row,
     Col,
-    FormControl
  } from 'react-bootstrap';
 
- //Images
-import navbar_logo from '../assets/navbar_logo.png'
 
 const Header = () => {
     return (

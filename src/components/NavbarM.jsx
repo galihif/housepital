@@ -1,6 +1,6 @@
 //Library
 import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 
 //Config
 import { auth } from '../config/firebase'
@@ -16,7 +16,6 @@ import {
 import navbar_logo from '../assets/navbar_logo.png'
 
 const NavbarM = () => {
-    const dispatch = useDispatch()
     const state = useSelector((state) => state)
 
     //State

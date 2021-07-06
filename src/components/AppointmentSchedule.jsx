@@ -13,13 +13,12 @@ import {
     Badge
  } from 'react-bootstrap';
 
- //Images
-import card_img from '../assets/card_img.png'
+ 
 
 const AppointmentSchedule = (props) => {
     //State
     const [show, setShow] = useState(false);
-    const [appointmentSchedule, setAppointmentSchedule] = useState(props.appointmentSchedule)
+    const [appointmentSchedule,] = useState(props.appointmentSchedule)
 
     //Method
     const toggleDialog = () => setShow(!show);

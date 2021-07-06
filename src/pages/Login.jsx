@@ -1,7 +1,7 @@
 //Library
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 //Config
 import { auth, firestore } from '../config/firebase'
@@ -20,7 +20,6 @@ import {
 const Login = () => {
     const history = useHistory()
     const dispatch = useDispatch()
-    const state = useSelector((state) => state)
     //state
     const [email, setEmail] = useState()
     const [password, setPassword] = useState()

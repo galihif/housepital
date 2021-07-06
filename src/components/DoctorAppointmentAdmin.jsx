@@ -1,29 +1,24 @@
 //Library
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
 //Styles
 
 import { 
     Button,
     Image,
-    Modal,
     Row,
     Col,
-    Form
  } from 'react-bootstrap';
 
- //Images
-import card_img from '../assets/card_img.png'
 
 const DoctorAppointmentAdmin = (props) => {
     const history = useHistory()
     const dispatch = useDispatch()
-    const state = useSelector((state) => state)
 
     //State
-    const [doctorAppointment,setDoctorAppointment] = useState(props.doctorAppointment)
+    const [doctorAppointment,] = useState(props.doctorAppointment)
 
     //Method
     const handleDetail = () => {
