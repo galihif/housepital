@@ -110,6 +110,14 @@ const Admin = () => {
                     })
             })
     }
+
+    if (!state.isLogged || state.userData.role !== "admin") {
+        return (
+            <Container className="p-5 d-flex justify-content-center align-items-center">
+                <h1>Not Found</h1>
+            </Container>
+        )
+    }
     
     return(
         <div className="">
