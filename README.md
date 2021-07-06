@@ -1,6 +1,6 @@
-#Administator login:
-##Email : admin@housepital.com
-##Password : adminhousepital
+# Administator login:
+## Email : admin@housepital.com
+## Password : adminhousepital
 
 # Getting Started with Create React App
 
