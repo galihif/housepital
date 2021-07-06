@@ -1,5 +1,5 @@
 //Library
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
 //Config
@@ -28,9 +28,21 @@ const DoctorAppointment = (props) => {
     const [user, setUser] = useState(state.userData)
     const [date, setDate] = useState("")
     const [time, setTime] = useState("")
+    const [isLogged, setLogged] = useState(false)
 
     //Method
-    const toggleDialog = () => setShow(!show);
+    useEffect(() => {
+        getUser()
+    })
+
+
+    const toggleDialog = () => {
+        if (isLogged) {
+            setShow(!show)
+        } else{
+            alert("You must login first")
+        }
+    };
 
     const handleChange = (e) => {
         switch (e.target.id) {
@@ -43,6 +55,16 @@ const DoctorAppointment = (props) => {
             default:
                 break
         }
+    }
+
+    const getUser = () => {
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                setLogged(true)
+            } else {
+                setLogged(false)
+            }
+        })
     }
 
     const handleBook = async () => {
